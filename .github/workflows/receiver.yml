@@ -1,0 +1,14 @@
+name: Receiver
+on:
+  repository_dispatch:
+    types: [ping]
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          ACTION: ${{ github.event.action }}
+        run: |
+          echo "event_type: $ACTION"
+          echo "$PAYLOAD"
